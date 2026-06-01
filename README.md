@@ -30,3 +30,17 @@ The **JavaScript was written entirely by me.** This includes:
 2. Enable CORS in Liferay: **Control Panel → System Settings → Security Tools → Portal Cross-Origin Resource Sharing (CORS)**
 3. Add a new configuration entry with the URL pattern `/o/headless-delivery/*`
 4. Open `index.html` in your browser and send requests
+
+## Code behind it
+
+1. Get function
+![Code for "get function"](img/GET-function.png)
+
+1. Get Single function
+![Code for "get single function"](img/GET-SINGLE-function.png)
+
+1. Post function
+![Code for "post function"](img/POST-function.png)
+
+1. Delete function
+![Code for delete function](img/DELETE-function.png)

@@ -356,7 +356,7 @@
         box-shadow: 0 0 10px rgba(15, 240, 192, 0.2);
       }
 
-     .method-btn.active-delete {
+      .method-btn.active-delete {
         border-color: var(--danger);
         background: rgba(255, 75, 110, 0.1);
         color: var(--danger);
@@ -762,7 +762,11 @@
                 <button class="method-btn" id="get-btn" data-method="GET">
                   GET
                 </button>
-                <button class="method-btn" id="get-single-btn" data-method="GET-SINGLE">
+                <button
+                  class="method-btn"
+                  id="get-single-btn"
+                  data-method="GET-SINGLE"
+                >
                   GET SINGLE
                 </button>
                 <button class="method-btn" id="post-btn" data-method="POST">
@@ -935,6 +939,57 @@
         }
       }
 
+      // GET SINGLE function
+      async function getSingle(url, user, passWord, basicAuth) {
+        try {
+          const value = await fetch(url, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Basic ${basicAuth}`,
+            },
+          });
+
+          if (!value.ok) {
+            throw new Error(`${value.status}`);
+          }
+
+          const data = await value.json();
+          outputBox.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        } catch (error) {
+          console.error(error);
+          window.alert(error);
+        }
+      }
+
+      // DELETE function
+      async function deleteIt(url, user, passWord, basicAuth) {
+        try {
+          const value = await fetch(url, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Basic ${basicAuth}`,
+            },
+          });
+
+          if (!value.ok) {
+            throw new Error(`${value.status}`);
+          }
+
+          if (value.status === 204) {
+            outputBox.innerHTML = "<pre>Resource deleted successfully.</pre>";
+            return;
+          }
+
+          const data = await value.json();
+          outputBox.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        } catch (error) {
+          console.error(error);
+          window.alert(error);
+        }
+      }
+
       // Change fetch method
       function changeMethod(methodType) {
         method = methodType;
@@ -944,6 +999,8 @@
       let getBtnPressed = false;
       getBtn.addEventListener("click", () => {
         if (!getBtnPressed) {
+          urlInput.value =
+            "http://localhost:8080/o/headless-delivery/v1.0/sites/20117/blog-postings";
           changeMethod(get);
           getSingleBtn.classList.remove("active-get");
           postBtn.classList.remove("active-post");
@@ -960,7 +1017,9 @@
       let getSingleBtnPressed = false;
       getSingleBtn.addEventListener("click", () => {
         if (!getSingleBtnPressed) {
-          // changeMethod(getSingle);
+          urlInput.value =
+            "http://localhost:8080/o/headless-delivery/v1.0/blog-postings/35215";
+          changeMethod(getSingle);
           getBtn.classList.remove("active-get");
           postBtn.classList.remove("active-post");
           deleteBtn.classList.remove("active-delete");
@@ -976,6 +1035,8 @@
       let postBtnPressed = false;
       postBtn.addEventListener("click", () => {
         if (!postBtnPressed) {
+          urlInput.value =
+            "http://localhost:8080/o/headless-delivery/v1.0/sites/20117/blog-postings";
           changeMethod(post);
           getBtn.classList.remove("active-get");
           getSingleBtn.classList.remove("active-get");
@@ -992,7 +1053,9 @@
       let deleteBtnPressed = false;
       deleteBtn.addEventListener("click", () => {
         if (!deleteBtnPressed) {
-          //changeMethod(delete);
+          urlInput.value =
+            "http://localhost:8080/o/headless-delivery/v1.0/blog-postings/35215";
+          changeMethod(deleteIt);
           getBtn.classList.remove("active-get");
           getSingleBtn.classList.remove("active-get");
           postBtn.classList.remove("active-post");
@@ -1019,6 +1082,8 @@
       noticeClose.addEventListener("click", () => {
         notice.style.display = "none";
       });
+
+      // Get single url: http://localhost:8080/o/headless-delivery/v1.0/blog-postings/35215
     </script>
   </body>
 </html>
