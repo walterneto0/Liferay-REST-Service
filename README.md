@@ -16,7 +16,7 @@ The **JavaScript was written entirely by me.** This includes:
 
 - Reading user inputs at request time (not on page load)
 - Building the Basic Auth header with `btoa()`
-- Implementing `GET` and `POST` fetch functions
+- Implementing `GET`, `GET SINGLE`, `POST` and `DELETE` fetch functions
 - Toggling the active method state on the buttons
 - Validating that all fields are filled before sending
 - Rendering the JSON response inside the output box
@@ -29,7 +29,7 @@ The **JavaScript was written entirely by me.** This includes:
    ```
 2. Enable CORS in Liferay: **Control Panel → System Settings → Security Tools → Portal Cross-Origin Resource Sharing (CORS)**
 3. Add a new configuration entry with the URL pattern `/o/headless-delivery/*`
-4. Open `index.html` in your browser and send requests
+4. Open [the web page](https://walterneto0.github.io/Liferay-REST-Service/) in your browser and send requests
 
 ## Code behind it
 
