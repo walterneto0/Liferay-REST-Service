@@ -356,6 +356,12 @@
         box-shadow: 0 0 10px rgba(15, 240, 192, 0.2);
       }
 
+     .method-btn.active-delete {
+        border-color: var(--danger);
+        background: rgba(255, 75, 110, 0.1);
+        color: var(--danger);
+        box-shadow: 0 0 10px rgba(255, 75, 110, 0.2);
+      }
       .output-panel {
         display: flex;
         flex-direction: column;
@@ -756,8 +762,14 @@
                 <button class="method-btn" id="get-btn" data-method="GET">
                   GET
                 </button>
+                <button class="method-btn" id="get-single-btn" data-method="GET-SINGLE">
+                  GET SINGLE
+                </button>
                 <button class="method-btn" id="post-btn" data-method="POST">
                   POST
+                </button>
+                <button class="method-btn" id="delete-btn" data-method="DELETE">
+                  Delete
                 </button>
               </div>
             </div>
@@ -860,7 +872,9 @@
       const userInput = document.getElementById("user");
       const passWordInput = document.getElementById("password");
       const getBtn = document.getElementById("get-btn");
+      const getSingleBtn = document.getElementById("get-single-btn");
       const postBtn = document.getElementById("post-btn");
+      const deleteBtn = document.getElementById("delete-btn");
       const sendBtn = document.getElementById("send-btn");
       const notice = document.getElementById("notice");
       const noticeClose = document.getElementById("notice-close");
@@ -931,7 +945,9 @@
       getBtn.addEventListener("click", () => {
         if (!getBtnPressed) {
           changeMethod(get);
+          getSingleBtn.classList.remove("active-get");
           postBtn.classList.remove("active-post");
+          deleteBtn.classList.remove("active-delete");
           getBtn.classList.add("active-get");
           getBtnPressed = true;
         } else {
@@ -940,17 +956,52 @@
           getBtnPressed = false;
         }
       });
+
+      let getSingleBtnPressed = false;
+      getSingleBtn.addEventListener("click", () => {
+        if (!getSingleBtnPressed) {
+          // changeMethod(getSingle);
+          getBtn.classList.remove("active-get");
+          postBtn.classList.remove("active-post");
+          deleteBtn.classList.remove("active-delete");
+          getSingleBtn.classList.add("active-get");
+          getSingleBtnPressed = true;
+        } else {
+          changeMethod(null);
+          getSingleBtn.classList.remove("active-get");
+          getSingleBtnPressed = false;
+        }
+      });
+
       let postBtnPressed = false;
       postBtn.addEventListener("click", () => {
         if (!postBtnPressed) {
           changeMethod(post);
           getBtn.classList.remove("active-get");
+          getSingleBtn.classList.remove("active-get");
+          deleteBtn.classList.remove("active-delete");
           postBtn.classList.add("active-post");
           postBtnPressed = true;
         } else {
           changeMethod(null);
           postBtn.classList.remove("active-post");
           postBtnPressed = false;
+        }
+      });
+
+      let deleteBtnPressed = false;
+      deleteBtn.addEventListener("click", () => {
+        if (!deleteBtnPressed) {
+          //changeMethod(delete);
+          getBtn.classList.remove("active-get");
+          getSingleBtn.classList.remove("active-get");
+          postBtn.classList.remove("active-post");
+          deleteBtn.classList.add("active-delete");
+          deleteBtnPressed = true;
+        } else {
+          changeMethod(null);
+          deleteBtn.classList.remove("active-delete");
+          deleteBtnPressed = false;
         }
       });
       sendBtn.addEventListener("click", () => {
